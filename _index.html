@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="phaser.min.js"></script>
+</head>
+<body style="margin: 0; padding: 0;">
+    <div class="container" style="position: fixed; left: 0; top: 0;
+    right: 0; bottom: 0;">
+
+    </div>
+    <script>
+            var refWidth = 1280;
+            var refHeight = 720;
+            var gameengine;
+            var tombolperbedaan = [];
+
+            var config = {
+        type: Phaser.AUTO,
+        backgroundColor: '#white',
+        scale: {
+            mode: Phaser.Scale.FIT,
+            autoCenter: Phaser.Scale.CENTER_BOTH,
+            _parent: 'container',
+            width: refWidth,
+            height: refHeight
+        },
+        scene: {
+            preload: preload,
+            create: create,
+        }
+    };
+
+        var game = new Phaser.Game(config);
+
+        function preload ()
+        {
+            this.load.image('bg','bg.jpg');
+            this.load.image('gambar','gambar.png');
+            this.load.image('tb_awan','tombol.png');
+            this.load.image('tb_ra','tb_ra.jpg');
+            this.load.image('tb_rb','tb_rb.jpg');
+            this.load.image('tb_pintu','tb_pintu.jpg');
+            this.load.image('tb_ban','tb_ban.jpg');
+            this.load.image('tb_telinga','tb_telinga.jpg');
+            this.load.image('tb_ekor','tb_ekor.jpg');
+            this.load.image('salah', 'salah.png');
+            this.load.image('benar', 'benar.png');
+        }
+
+    function create()
+        { 
+            gameengine=this;
+            this.add.image(0, 0, 'bg').setOrigin(0);
+            var gambar = this.add.image(refWidth/2, refHeight/2, 'gambar').setOrigin(0.5).setInteractive();
+            gambar.on("pointerdown",function(){
+                // alert("Salah!");
+                tampilkanTanda("salah", gameengine);
+            });
+            
+            var tb_awan = this.add.image(1010, 227, 'tb_awan').setOrigin(0.5).setInteractive();   
+            //tb_awan.setAlpha(0.001);
+            tb_awan.on("pointerdown", function(){  
+            //pemanggilan  
+                tampilkanTanda("benar", gameengine);
+            });
+            var tb_awan = this.add.image(1112, 410, 'tb_awan').setOrigin(0.5).setInteractive();   
+            //tb_awan.setAlpha(0.001);
+            tb_awan.on("pointerdown", function(){  
+            //pemanggilan  
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_awan = this.add.image(364, 138, 'tb_awan').setOrigin(0.5).setInteractive();
+            //tb_awan.setAlpha(0.001);
+            tb_awan.on("pointerdown", function(){
+            //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ra = this.add.image(102, 430, 'tb_ra').setOrigin(0.5).setInteractive();
+            //tb_ra.setAlpha(0.001);
+            tb_ra.on("pointerdown", function(){
+                //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ra = this.add.image(691, 430, 'tb_ra').setOrigin(0.5).setInteractive();
+            //tb_ra.setAlpha(0.001);
+            tb_ra.on("pointerdown", function(){
+                //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ra = this.add.image(571, 390, 'tb_ra').setOrigin(0.5).setInteractive();
+            //tb_ra.setAlpha(0.001);
+            tb_ra.on("pointerdown", function(){
+                //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ra = this.add.image(1159, 390, 'tb_ra').setOrigin(0.5).setInteractive();
+            //tb_ra.setAlpha(0.001);
+            tb_ra.on("pointerdown", function(){
+                 //pemanggilan
+                 tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ra = this.add.image(411, 437, 'tb_ra').setOrigin(0.5).setInteractive();
+            //tb_ra.setAlpha(0.001);
+            tb_ra.on("pointerdown", function(){
+                 //pemanggilan
+                 tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ra = this.add.image(997, 437, 'tb_ra').setOrigin(0.5).setInteractive();
+            //tb_ra.setAlpha(0.001);
+            tb_ra.on("pointerdown", function(){
+                 //pemanggilan
+                 tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_pintu = this.add.image(251, 451, 'tb_pintu').setOrigin(0.5).setInteractive();
+            //tb_pintu.setAlpha(0.001);
+            tb_pintu.on("pointerdown", function(){
+                 //pemanggilan
+                 tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_pintu = this.add.image(842, 451, 'tb_pintu').setOrigin(0.5).setInteractive();
+            //tb_pintu.setAlpha(0.001);
+            tb_pintu.on("pointerdown", function(){
+                //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ban = this.add.image(469, 542, 'tb_ban').setOrigin(0.5).setInteractive();
+            //tb_ban.setAlpha(0.001);
+            tb_ban.on("pointerdown", function(){
+                //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ban = this.add.image(1061, 542, 'tb_ban').setOrigin(0.5).setInteractive();
+            //tb_ban.setAlpha(0.001);
+            tb_ban.on("pointerdown", function(){
+                //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ban = this.add.image(218, 499, 'tb_ban').setOrigin(0.5).setInteractive();
+            //tb_ban.setAlpha(0.001);
+            tb_ban.on("pointerdown", function(){
+                 //pemanggilan
+                 tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ban = this.add.image(811, 499, 'tb_ban').setOrigin(0.5).setInteractive();
+            //tb_ban.setAlpha(0.001);
+            tb_ban.on("pointerdown", function(){
+                //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_telinga = this.add.image(330, 277, 'tb_telinga').setOrigin(0.5).setInteractive();
+            //tb_telinga.setAlpha(0.001);
+            tb_telinga.on("pointerdown", function(){
+                //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_telinga = this.add.image(918, 277, 'tb_telinga').setOrigin(0.5).setInteractive();
+            //tb_telinga.setAlpha(0.001);
+            tb_telinga.on("pointerdown", function(){
+                //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ekor = this.add.image(470, 384, 'tb_ekor').setOrigin(0.5).setInteractive();
+            //tb_ekor.setAlpha(0.001);
+            tb_ekor.on("pointerdown", function(){
+                //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ekor = this.add.image(1062, 384, 'tb_ekor').setOrigin(0.5).setInteractive();
+            //tb_ekor.setAlpha(0.001);
+            tb_ekor.on("pointerdown", function(){
+                //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ra = this.add.image(320, 395, 'tb_ra').setOrigin(0.5).setInteractive();
+            //tb_ra.setAlpha(0.001);
+            tb_ra.on("pointerdown", function(){
+                //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+
+            var tb_ra = this.add.image(908, 395, 'tb_ra').setOrigin(0.5).setInteractive();
+            //tb_ra.setAlpha(0.001);
+            tb_ra.on("pointerdown", function(){
+                //pemanggilan
+                tampilkanTanda("benar", gameengine);
+            });
+        
+    }
+
+    function tampilkanTanda(namagambar, gameengine){
+        var pointer = gameengine.input.activePointer;
+        var gambar = gameengine.add.image(pointer.worldX, pointer.worldY, namagambar).setOrigin(0.5);
+        }        
+        // function tampilkanTanda(){
+        //     alert("posisi mouse x:"+pointer.worldX + " y:" +pointer.worldY);
+        // }
+    </script>
+</body>
+</html>

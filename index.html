@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Difference</title>
+    <script src="phaser.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        h1{
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-bottom:-70px;
+        }
+    </style>
+
+</head>
+
+<body style="margin: 0; padding: 0;">
+    <div class="container" style="position: fixed; left: 0; top: 0;
+    right: 0; bottom: 0;">
+        <!-- <h1>Game Mencari Perbedaan Gambar</h1> -->
+
+<button type="submit" onClick="refreshPage()">Mulai Ulang</button>
+        </body>
+    </div>
+
+    <script>
+    const refreshButton = document.querySelector('.refresh-button');
+        function refreshPage(){
+            window.location.reload();
+        }
+    </script>
+
+    <script>
+            var refWidth = 1280;
+            var refHeight = 720;
+            var gameengine;
+            var tombolperbedaan = [];
+            var sudahditemukan = [];
+            var tid = 0;
+            var skor = 0;
+            var teksskor;
+            var timer = 30;
+            var tekstimer;
+            var suarabenar;
+            var suarasalah;
+            var gameover;
+            var selamat;
+
+
+            var config = {
+        type: Phaser.AUTO,
+        backgroundColor: '#white',
+        scale: {
+            mode: Phaser.Scale.FIT,
+            autoCenter: Phaser.Scale.CENTER_BOTH,
+            _parent: 'container',
+            width: refWidth,
+            height: refHeight
+        },
+        scene: {
+            preload: preload,
+            create: create,
+        }
+    };
+    
+    var game = new Phaser.Game(config);
+    
+ 
+    function preload ()
+        {
+            this.load.image('bg','bg.jpg');
+            this.load.image('gambar','gambar.png');
+            this.load.image('tombol','tombol.png');
+            this.load.image('benar', 'benar.png');
+            this.load.image('salah', 'salah.png');
+            this.load.audio('suarabenar', 'benar.mp3');
+            this.load.audio('suarasalah', 'salah.mp3');
+            this.load.audio('gameover', 'gameover.mp3');
+            
+        }
+
+    function create()
+        { 
+            gameengine=this;
+            this.add.image(0, 0, 'bg').setOrigin(0);
+            var gambar = this.add.image(refWidth/2, refHeight/2, 'gambar').setOrigin(0.5).setInteractive();
+            gambar.on("pointerdown",function(){
+                // alert("Salah!");
+                tampilkanTanda("salah");
+
+                skor -= 10;
+                teksskor.text = 'Skor: ' + skor;
+                suarasalah.play();
+                
+            });
+            
+            //Tombol
+            buatTombolSepasang(1010, 227);
+            buatTombolSepasang(1112, 410);
+            buatTombolSepasang(1051, 384);
+            buatTombolSepasang(839, 310);
+            buatTombolSepasang(785, 586);
+
+            teksskor = this.add.text(refWidth/2, 55, 'Skor: ' + skor, {font: "40px Arial", color: "white"});
+            teksskor.setOrigin(0.5);
+
+            tekstimer = this.add.text(refWidth/2, refHeight-50, 'Timer: ' + timer, {font: "20px Arial", color: "white"});
+            tekstimer.setOrigin(0.5);
+
+            suarabenar = this.sound.add('suarabenar');
+            suarasalah = this.sound.add('suarasalah');
+            gameover = this.sound.add('gameover');
+            waktuBerkurang();
+        }
+    function waktuBerkurang(){
+        // console.log("timer" + timer);
+        setTimeout(function(){
+            if(timer>0){
+                timer--;
+                waktuBerkurang();
+                tekstimer.text ="Timer: " + timer;
+                }else{
+                    // Swal.fire({
+                    // title: 'Game Over!',
+                    // text: 'Skor kamu : ' + skor,
+                    // confirmButtonText: 'OK!'
+                    // })
+                    
+                    gameover.play();
+                    alert("GAME OVER!!!, Skor kamu: "+skor)
+                }
+            }, 1000);
+    }    
+
+
+    function buatTombol(x, y){
+        var tombol = gameengine.add.image(x, y, 'tombol').setOrigin(0.5).setInteractive();   
+        tombol.setAlpha(0.0001);
+        tombol.on("pointerdown", function(){  
+        //pemanggilan 
+        //alert("benar: " + this.tid);
+
+       if(!cekApakahSudahDitemukan(this.tid)){
+
+        sudahditemukan.push(this.tid);
+        tampilkanTanda("benar", gameengine);
+        console.log("ya");
+        
+        skor+=100;
+        suarabenar.play();
+
+        teksskor.text = 'Skor: ' + skor;
+       }else{
+           console.log("kamu sudah menemukan");
+       }
+        
+        }); 
+        tombol.tid = tid;
+        return tombol;
+    }
+
+    function tampilkanTanda(namagambar){
+        var pointer = gameengine.input.activePointer;
+
+        //pengecekan
+        var posisix = pointer.worldX;
+        
+        var gambar1 = gameengine.add.image(posisix, pointer.worldY, namagambar).setOrigin(0.5);
+        
+        if(posisix > refWidth/2)
+            posisix -= 570;
+        else
+            posisix += 570;
+        
+        var gambar2 = gameengine.add.image(posisix, pointer.worldY, namagambar).setOrigin(0.5);
+
+    }        
+    
+    function buatTombolSepasang(x, y){
+        tombolperbedaan.push({
+        "kanan": buatTombol(x, y),
+        "kiri" : buatTombol(x-570, y)
+        });
+    
+        tid++;
+    }
+
+    function cekApakahSudahDitemukan(idtombol){
+        for(var i=0; i < sudahditemukan.length; i++){
+            if(sudahditemukan[i] == idtombol){
+                return true;
+            }
+        }
+        return false;
+    }
+    </script>
+
+</html>
